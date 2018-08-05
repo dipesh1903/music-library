@@ -3,6 +3,8 @@
 <p>
 register
 </p>
+<br>
+<div class="error" v-html="err" />
 <input type='email' name='email' v-model='email' placeholder='enter your email id'/>
 <br>
 <input type='password' name='pass' v-model='pass' placeholder='enter the passwprd'/>
@@ -17,19 +19,30 @@ export default {
   data () {
     return {
       email: '',
-      pass: ''
+      pass: '',
+      err: null
     }
   },
   methods: {
     async register () {
-      console.log('registerd')
-      await applicationService.register({
-        email: this.email,
-        password: this.pass
-      })
+      try {
+        console.log('registerd')
+        await applicationService.register({
+          email: this.email,
+          password: this.pass
+        })
+        this.err = `Registered`
+      } catch (error) {
+        this.err = error.response.data.error
+      }
     }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.error {
+  color: red;
+}
+</style>
