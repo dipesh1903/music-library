@@ -9,8 +9,9 @@ app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/status', (req, res) => {
-  res.send({message: 'welcome to fullStack development'})
+app.post('/register', (req, res) => {
+  res.send({message: `Hello ${req.body.email} welcome to fullStack development`})
+  console.log(`${req.body.email}`)
 })
 
 app.listen(process.env.PORT || 8081)
