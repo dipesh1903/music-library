@@ -55,7 +55,6 @@ export default {
     async submit () {
       if (this.$refs.form.validate()) {
         try {
-          console.log('registerd')
           await applicationService.login({
             email: this.email,
             password: this.pass

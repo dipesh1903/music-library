@@ -9,5 +9,8 @@ module.exports = {
       host: process.env.HOST || 'localhost',
       storage: './data.mysql'
     }
+  },
+  authentication: {
+    jwtSecret: process.env.JWT_SECRET || 'secret'
   }
 }
