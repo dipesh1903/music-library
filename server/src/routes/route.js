@@ -4,4 +4,5 @@ const authenticationValidationPolicy = require('../policy/authenticationValidato
 module.exports = (app) => {
   app.post('/register', authenticationValidationPolicy.register, authenticationController.register
   )
+  app.post('/login', authenticationController.login)
 }

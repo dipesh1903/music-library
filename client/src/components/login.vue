@@ -3,7 +3,7 @@
 <v-flex xs6 offset-xs3>
 <div class='white elevation-2'>
 <v-toolbar flast dense class='cyan' dark>
-<v-toolbar-title>Register</v-toolbar-title>
+<v-toolbar-title>Login</v-toolbar-title>
 </v-toolbar>
 <v-form ref="form" v-model="valid" lazy-validation>
     <v-text-field
@@ -46,7 +46,7 @@ export default {
         v => /.+@.+/.test(v) || 'E-mail is invalid'
       ],
       passRules: [
-        v => !!v || 'Passowrd i required',
+        v => !!v || 'Passowrd is required',
         v => /([A-Za-z0-9])/.test(v) || 'Password must be either character or numbers'
       ]
     }
@@ -56,11 +56,11 @@ export default {
       if (this.$refs.form.validate()) {
         try {
           console.log('registerd')
-          await applicationService.register({
+          await applicationService.login({
             email: this.email,
             password: this.pass
           })
-          this.err = `Registered`
+          this.err = `Login Successful`
         } catch (error) {
           this.err = error.response.data.error
         }
