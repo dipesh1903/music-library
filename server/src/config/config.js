@@ -7,7 +7,13 @@ module.exports = {
     options: {
       dialect: process.env.DIALECT || 'mysql',
       host: process.env.HOST || 'localhost',
-      storage: './data.mysql'
+      pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+      },
+      operatorsAliases: false
     }
   },
   authentication: {

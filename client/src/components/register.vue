@@ -56,10 +56,12 @@ export default {
       if (this.$refs.form.validate()) {
         try {
           console.log('registerd')
-          await applicationService.register({
+          const response = await applicationService.register({
             email: this.email,
             password: this.pass
           })
+          this.$store.dispatch('setToken', response.data.token)
+          this.$store.dispatch('setName', response.data.user)
           this.err = `Registered`
         } catch (error) {
           this.err = error.response.data.error

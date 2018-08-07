@@ -55,10 +55,12 @@ export default {
     async submit () {
       if (this.$refs.form.validate()) {
         try {
-          await applicationService.login({
+          const response = await applicationService.login({
             email: this.email,
             password: this.pass
           })
+          this.$store.dispatch('setToken', response.data.token)
+          this.$store.dispatch('setName', response.data.user)
           this.err = `Login Successful`
         } catch (error) {
           this.err = error.response.data.error
