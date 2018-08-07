@@ -11,6 +11,7 @@
       :rules="emailRules"
       label="E-mail"
       required
+
     ></v-text-field>
     <v-text-field
       type="password"
