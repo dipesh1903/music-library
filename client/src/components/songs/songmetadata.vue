@@ -11,6 +11,13 @@
         <div class="song-genre">
           {{song.genre}}
 </div>
+<div>
+<v-btn
+cyan
+v-on:click="navigateTo({name: 'songedit', params: {songId: song.id}})">
+Edit
+</v-btn>
+</div>
 </v-flex>
 
       <v-flex xs6>
@@ -31,6 +38,11 @@ export default {
   ],
   components: {
     panel
+  },
+  methods: {
+    navigateTo (path) {
+      this.$router.push(path)
+    }
   }
 }
 </script>

@@ -31,5 +31,20 @@ module.exports = {
         error: `Server Error found`
       })
     }
+  },
+  async put (req, res) {
+    try {
+      const song = await Song.update(req.body, {
+        where: {
+          id: req.params.songId
+        }
+      })
+      console.log(song)
+      res.send(req.body)
+    } catch (err) {
+      res.status(500).send({
+        error: `Server Error found`
+      })
+    }
   }
 }
