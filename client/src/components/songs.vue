@@ -36,7 +36,7 @@
         </v-card-title>
         <v-card-actions>
           <a v-bind:href="song.youtubeId"><v-btn flat color="orange">Watch on youtube</v-btn></a>
-          <v-btn flat color="orange">Explore</v-btn>
+          <v-btn flat color="orange" v-on:click="navigateTo({name:'viewSong', params: {songId: song.id}})" >Explore</v-btn>
         </v-card-actions>
       </v-card>
       </v-flex>
@@ -62,6 +62,11 @@ export default {
   async mounted () {
     this.songs = (await songService.index()).data
     console.log(this.songs.length)
+  },
+  methods: {
+    navigateTo (song) {
+      this.$router.push(song)
+    }
   },
   components: {
     panel
