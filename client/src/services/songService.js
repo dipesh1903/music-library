@@ -1,9 +1,6 @@
 import Api from '@/services/Api'
 
 export default {
-  index () {
-    return Api().get('songs')
-  },
   post (song) {
     return Api().post('songs', song)
   },
@@ -12,5 +9,8 @@ export default {
   },
   put (song) {
     return Api().put(`/song/${song.id}`, song)
+  },
+  search (search) {
+    return Api().get('songs', {params: {search: search}})
   }
 }

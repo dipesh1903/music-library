@@ -6,7 +6,7 @@ module.exports = (app) => {
   app.post('/register', authenticationValidationPolicy.register, authenticationController.register
   )
   app.post('/login', authenticationController.login)
-  app.get('/songs', SongsController.index)
+  app.get('/songs', SongsController.search)
   app.post('/songs', SongsController.post)
   app.get('/song/:songId', SongsController.show)
   app.put('/song/:songId', SongsController.put)

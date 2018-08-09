@@ -1,6 +1,12 @@
 <template>
 <v-layout column>
 <v-flex>
+<panel title="Search Box">
+<v-text-field
+      v-model="search"
+      label="Search by song title, genre, artist, album"
+    ></v-text-field>
+</panel>
 <panel title="Song List">
    <v-layout>
     <v-flex >
@@ -56,12 +62,28 @@ import songService from '@/services/songService'
 export default {
   data () {
     return {
-      songs: null
+      songs: null,
+      search: null
     }
   },
-  async mounted () {
-    this.songs = (await songService.index()).data
-    console.log(this.songs.length)
+  watch: {
+    search (value) {
+      const route = {
+        name: 'songs'
+      }
+      if (this.search !== null) {
+        route.query = {
+          search: this.search
+        }
+        this.$router.push(route)
+      }
+    },
+    '$route.query.search': {
+      immediate: true,
+      async handler (value) {
+        this.songs = (await songService.search(value)).data
+      }
+    }
   },
   methods: {
     navigateTo (song) {
