@@ -17,6 +17,18 @@ cyan
 v-on:click="navigateTo({name: 'songedit', params: {songId: song.id}})">
 Edit
 </v-btn>
+<v-btn
+v-if="$store.state.islogged && !bookmark"
+cyan
+v-on:click="Bookmark">
+BookMark
+</v-btn>
+<v-btn
+v-if= "$store.state.islogged && bookmark"
+cyan
+v-on:click="unbookmark">
+UnBookmark
+</v-btn>
 </div>
 </v-flex>
 
@@ -31,18 +43,56 @@ Edit
 
 <script>
 import panel from '@/components/panel'
+import bookmarkService from '@/services/bookmarkService'
 
 export default {
   props: [
     'song'
   ],
-  components: {
-    panel
+  data () {
+    return {
+      bookmark: null
+    }
+  },
+  async mounted () {
+    try {
+      const params = {
+        songId: this.song.id,
+        userId: this.$store.state.name.id
+      }
+      console.log(params, 'hbnjnjnjm')
+      this.bookmark = (await bookmarkService.index(params)).data
+    } catch (err) {
+      console.log('Some error occured')
+    }
   },
   methods: {
     navigateTo (path) {
       this.$router.push(path)
+    },
+    async Bookmark () {
+      try {
+        const params = {
+          songId: this.song.id,
+          userId: this.$store.state.name.id
+        }
+        console.log(params)
+        this.bookmark = (await bookmarkService.post(params)).data
+      } catch (err) {
+        console.log('Some error occured')
+      }
+    },
+    async unbookmark () {
+      try {
+        await bookmarkService.delete(this.bookmark.id)
+        this.bookmark = null
+      } catch (err) {
+        console.log('some error occured')
+      }
     }
+  },
+  components: {
+    panel
   }
 }
 </script>
