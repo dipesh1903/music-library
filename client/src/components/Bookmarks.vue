@@ -10,7 +10,7 @@
 {{props.item.title}}
 </td>
 <td class="text-xs-right">
-{{props.item.title}}
+{{props.item.artist}}
 </td>
 </template>
 </v-data-table>
