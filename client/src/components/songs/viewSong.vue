@@ -28,6 +28,7 @@ import tab from './tab'
 import youtube from './youtube'
 import songmetadata from './songmetadata'
 import songService from '@/services/songService'
+import historyService from '@/services/historyService'
 export default {
   data () {
     return {
@@ -37,6 +38,13 @@ export default {
   async mounted () {
     const songId = this.$store.state.route.params.songId
     this.song = (await songService.show(songId)).data
+
+    if (this.$store.state.islogged) {
+      await historyService.post({
+        songId: songId,
+        userId: this.$store.state.name.id
+      })
+    }
   },
   components: {
     lyrics,

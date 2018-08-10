@@ -1,7 +1,8 @@
 <template>
 <v-layout column>
 <v-flex xs6>
-<bookmarks />>
+<bookmarks />
+<recentview />
 </v-flex>
 <v-flex>
 <panel title="Search Box">
@@ -63,6 +64,7 @@
 import panel from '@/components/panel'
 import songService from '@/services/songService'
 import bookmarks from '@/components/Bookmarks'
+import recentview from '@/components/recentview'
 export default {
   data () {
     return {
@@ -96,7 +98,8 @@ export default {
   },
   components: {
     panel,
-    bookmarks
+    bookmarks,
+    recentview
   }
 }
 </script>
