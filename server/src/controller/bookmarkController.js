@@ -1,5 +1,5 @@
-const {Bookmark} = require('../models')
-
+const {Bookmark, Song} = require('../models')
+const _ = require('lodash')
 module.exports = {
   async index (req, res) {
     try {
@@ -48,6 +48,21 @@ module.exports = {
       res.send(bk)
     } catch (err) {
       res.status(500).send('server error unable to delete')
+    }
+  },
+  async get (req, res) {
+    try {
+      const {userId} = req.query
+      const bookmark = await Bookmark.findAll({
+        where: {
+          UserId: userId
+        },
+        include: [Song]
+      }).map(bookmark => bookmark.toJSON()).map(bookmark => _.extend({id: bookmark.id}, bookmark.Song))
+      console.log(bookmark)
+      res.send(bookmark)
+    } catch (err) {
+      res.status(500).send('server issue try after some time')
     }
   }
 }

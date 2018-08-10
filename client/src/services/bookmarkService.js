@@ -9,5 +9,8 @@ export default {
   },
   delete (params) {
     return Api().get(`bookmarks/${params}`)
+  },
+  get (params) {
+    return Api().get('bookmark', {params: params})
   }
 }
